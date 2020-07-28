@@ -27,8 +27,6 @@ function App() {
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
 
-  console.log(questions);
-
   const startQuiz = async () => {
     setLoading(true);
     setGameOver(false);
@@ -41,18 +39,48 @@ function App() {
     setNumber(0);
     setLoading(false);
   };
-  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {};
+
+  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!gameOver) {
+      // user's answer
+      const answer = e.currentTarget.value;
+
+      // check user answer against the correct answer
+      const correct = answer === questions[number].correct_answer;
+
+      // Add 1 to user score if correct
+      if (correct) {
+        setScore((prev) => prev + 1);
+      }
+
+      // save answer in the array for user answers
+      const answerObject = {
+        question: questions[number].question,
+        answer,
+        correct,
+        correctAnswer: questions[number].correct_answer,
+      };
+
+      setUserAnswers((prev) => [...prev, answerObject]);
+    }
+  };
+
   const nextQuestion = () => {};
+
   return (
     <div className="App">
       <h1> React Quiz </h1>
+
       {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
         <button className="start" onClick={startQuiz}>
           Start
         </button>
       ) : null}
-      {!gameOver ? <p className="score"> Score: </p> : null}
+
+      {!gameOver ? <p className="score"> Score: {score} </p> : null}
+
       {loading && <p> Loading Question ...</p>}
+
       {!loading && !gameOver && (
         <QuestionCard
           questionNumber={number + 1}
@@ -63,9 +91,15 @@ function App() {
           callback={checkAnswer}
         />
       )}
-      <button className="start" onClick={nextQuestion}>
-        Next Question
-      </button>
+
+      {!gameOver &&
+      !loading &&
+      userAnswers.length === number + 1 &&
+      number !== TOTAL_QUESTIONS - 1 ? (
+        <button className="start" onClick={nextQuestion}>
+          Next Question
+        </button>
+      ) : null}
     </div>
   );
 }
