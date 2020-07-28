@@ -18,7 +18,7 @@ export type AnswerObject = {
   correctAnswer: string;
 };
 
-const TOTAL_QUESTIONS = 10;
+const TOTAL_QUESTIONS = 20;
 
 function App() {
   // Slices of state
@@ -33,7 +33,7 @@ function App() {
     setLoading(true);
     setGameOver(false);
 
-    const newQuestions = await fetchQuiz(TOTAL_QUESTIONS, Difficulty.EASY);
+    const newQuestions = await fetchQuiz(TOTAL_QUESTIONS, Difficulty.MEDIUM);
 
     setQuestions(newQuestions);
     setScore(0);

@@ -67,10 +67,11 @@ export const Wrapper = styled.div`
     height: 40px;
     margin: 20px, 0;
     padding: 0, 40px;
+    margin-top: 18px;
     border-radius: 10px;
   }
 
   .start {
-    max-width: 200px;
+    min-width: 200px;
   }
 `;
