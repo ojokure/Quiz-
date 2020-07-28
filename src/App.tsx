@@ -48,7 +48,7 @@ function App() {
       const answer = e.currentTarget.value;
 
       // check user answer against the correct answer
-      const correct = answer === questions[number].correct_answer;
+      const correct = questions[number].correct_answer === answer;
 
       // Add 1 to user score if correct
       if (correct) {
