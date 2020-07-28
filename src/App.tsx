@@ -9,7 +9,7 @@ import QuestionCard from "./Components/QuestionCard";
 
 import { QuestionState, Difficulty } from "./API";
 
-type answerObject = {
+export type AnswerObject = {
   question: string;
   answer: string;
   correct: boolean;
@@ -23,7 +23,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState<QuestionState[]>([]);
   const [number, setNumber] = useState(0);
-  const [userAnswers, setUserAnswers] = useState<answerObject[]>([]);
+  const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
 
@@ -52,7 +52,6 @@ function App() {
       if (correct) {
         setScore((prev) => prev + 1);
       }
-
       // save answer in the array for user answers
       const answerObject = {
         question: questions[number].question,
@@ -65,7 +64,16 @@ function App() {
     }
   };
 
-  const nextQuestion = () => {};
+  const nextQuestion = () => {
+    // move on to the next question
+    const nextQuestion = number + 1;
+
+    if (nextQuestion === TOTAL_QUESTIONS) {
+      setGameOver(true);
+    } else {
+      setNumber(nextQuestion);
+    }
+  };
 
   return (
     <div className="App">
