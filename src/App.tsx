@@ -33,7 +33,7 @@ function App() {
     setLoading(true);
     setGameOver(false);
 
-    const newQuestions = await fetchQuiz(TOTAL_QUESTIONS, Difficulty.MEDIUM);
+    const newQuestions = await fetchQuiz(TOTAL_QUESTIONS, Difficulty.EASY);
 
     setQuestions(newQuestions);
     setScore(0);
